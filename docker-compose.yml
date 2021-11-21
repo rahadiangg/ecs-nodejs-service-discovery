@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  node1:
+    container_name: node1
+    build: .
+    environment:
+      - host_lawan=node2
+      - node=Node1
+    ports:
+      - 3000:3000
+    restart: on-failure
+    networks:
+      - nodecallnode
+  node2:
+    container_name: node2
+    build: .
+    environment:
+      - host_lawan=node1
+      - node=Node2
+    ports:
+      - 3001:3000
+    restart: on-failure
+    networks:
+      - nodecallnode
+networks:
+  nodecallnode:
+    driver: bridge
